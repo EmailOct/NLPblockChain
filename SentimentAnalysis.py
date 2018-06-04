@@ -94,7 +94,7 @@ def main():
     api = TwitterClient()
     # calling function to get tweets
     tweets = api.get_tweets(query='Nomura Holdings', count=200)
-    num = 2
+    num = 3
 
     if tweets == None:
         print("Couldn't get tweets")
@@ -108,24 +108,23 @@ def main():
         print("Couldn't open file")
         return
 
+    out.write("Sentiment Type, Sentiment Percent, Sentiments\n")
+
     # picking positive tweets from tweets
     ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive']
     # percentage of positive tweets
-    out.write("Positive sentiment,{}%,[".format(100 * len(ptweets) / len(tweets)))
-
-    for tweet in ptweets[:10]:
-        print(tweet['text'])
+    out.write("Positive sentiment, {}%, [".format(100 * len(ptweets) / len(tweets)))
 
     i = 0
 
     for tweet in ptweets[:num]:
 
         t = tweet['text']
-        out.write(str(t))
+        out.write('"' + t + '"')
 
         if i != num-1:
 
-            out.write(";")
+            out.write(",")
 
         i = i + 1
 
@@ -136,7 +135,7 @@ def main():
     out.write("\n")
 
     # percentage of negative tweets
-    out.write("Negative sentiment,{}%,[".format(100 * len(ntweets) / len(tweets)))
+    out.write("Negative sentiment, {}%, [".format(100 * len(ntweets) / len(tweets)))
 
     i = 0
 
@@ -156,7 +155,7 @@ def main():
     out.write("\n")
 
     # percentage of neutral
-    out.write("Neutral sentiment,{}%,[]".format(100 * (len(tweets) - len(ntweets) - len(ptweets)) / len(tweets)))
+    out.write("Neutral sentiment, {}%, []".format(100 * (len(tweets) - len(ntweets) - len(ptweets)) / len(tweets)))
 
     out.close()
 
