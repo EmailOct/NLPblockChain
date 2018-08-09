@@ -76,7 +76,7 @@ class GraphPage(Frame):
         Frame.__init__(self, parent)
         self.controller = controller
 
-        Button(self, text="Bar Graph").grid(row=0, column=0, pady=10)
+        Button(self, text="Bar Graph", command=lambda: gc.create_bar_graph(names, "")).grid(row=0, column=0, pady=10)
         Button(self, text="Pie Chart", command=lambda: gc.create_pie_chart(names)).grid(row=0, column=1, pady=10)
         Button(self, text="Line Graph", command=lambda: gc.create_line_graph(names)).grid(row=1, column=0, pady=10)
         Button(self, text="Area Graph", command=lambda:gc.create_area_graph(names)).grid(row=1, column=1, pady=10)
