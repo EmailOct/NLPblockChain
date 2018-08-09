@@ -11,23 +11,33 @@ from matplotlib import patches as pat
 
 def create_bar_graph(names, graph_label):
 
-    # Data
-    r = [0,1,2,3]
+    i = 0
+    r = []
+    bars = []
+    for name in names:
+        bars.append(sa.main(name))
+        r.append(i)
+        i = i + 1
 
-    bars = [sa.main(names[0]), sa.main(names[1]), sa.main(names[2]), sa.main(names[3])]
+    orangeBars = []
+    greenBars = []
+    redBars = []
 
-    orangeBars = [bars[0][0], bars[1][0], bars[2][0], bars[3][0]]
-    greenBars = [bars[0][1], bars[1][1], bars[2][1], bars[3][1]]
-    blueBars = [bars[0][2], bars[1][2], bars[2][2], bars[3][2]]
+    for bar in bars:
+        orangeBars.append(float(bar[1]) + float(bar[0]) + float(bar[2]))
+        greenBars.append(float(bar[1]) + float(bar[0]))
+        redBars.append(float(bar[0]))
 
     barWidth = 0.80
 
+    print(orangeBars)
+
     # Create orange Bars
-    plt.bar(r, orangeBars, bottom=greenBars, color='#e90c00', edgecolor='white', width=barWidth, label="Negative Sentiment")
+    plt.bar(r, orangeBars, color='#e90c00', edgecolor='white', width=barWidth, label="Neutral Sentiment")
     # Create green Bars
     plt.bar(r, greenBars, color='#00cf0b', edgecolor='white', width=barWidth, label="Positive Sentiment")
     # Create blue Bars
-    plt.bar(r, blueBars, bottom=[i+j for i,j in zip(greenBars, orangeBars)], color='#ff8f03', edgecolor='white', width=barWidth, label="Neutral Sentiment")
+    plt.bar(r, redBars, color='#ff8f03', edgecolor='white', width=barWidth, label="Negative Sentiment")
 
     fig_size = plt.rcParams["figure.figsize"]
     fig_size[0] = 12
