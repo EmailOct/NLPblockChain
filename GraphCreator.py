@@ -103,3 +103,30 @@ def create_line_graph(names):
     plt.legend(loc='upper right')
 
     plt.show()
+
+
+def create_area_graph(names):
+
+    area_colors = ['#ff8f03', '#00cf0b', '#e90c00']
+
+    neu_values = []
+    pos_values = []
+    neg_values = []
+
+    x = []
+    i = 0
+    for name in names:
+        if name != '':
+            val = sa.main(name)
+            neu_values.append(float(val[0]))
+            pos_values.append(float(val[1]))
+            neg_values.append(float(val[2]))
+            x.append(i)
+            i = i+1
+
+    plt.subplot()
+    plt.xticks(x, names)
+    plt.ylabel('Percentage %')
+    plt.stackplot(x, neu_values, pos_values, neg_values, labels=['Neutral', 'Positive', 'Negative'], colors=area_colors)
+    plt.legend()
+    plt.show()
