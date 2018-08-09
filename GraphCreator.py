@@ -4,6 +4,7 @@ from matplotlib import rc
 import pandas as pd
 import SentimentAnalysis3 as sa
 from matplotlib import path as path
+from matplotlib import patches as pat
 
 # In[44]:
 
@@ -48,6 +49,9 @@ def create_bar_graph(names, graph_label):
 def create_pie_chart(names):
 
     graph_colors = ['#ff8f03', '#00cf0b', '#e90c00']
+    orange_pat = pat.Patch(color='orange', label='Neutral')
+    green_pat = pat.Patch(color='green', label='Positive')
+    red_pat = pat.Patch(color='red', label='Negative')
 
     count=0
     for name in names:
@@ -58,19 +62,22 @@ def create_pie_chart(names):
 
     if count <= 3:
         nc = count
+    elif count == 3:
+        nr = 2
+        nc = 2
     else:
         nc = 3
 
     i = 1
     for name in names:
-        if name != '':
-            val = sa.main(name)
-            plt.subplot(nr, nc, i)
-            plt.pie(val, colors=graph_colors, shadow=True, radius=1.2, labeldistance=0.2)
-            i = i+1
+        val = sa.main(name)
+        plt.subplot(nr, nc, i)
+        plt.title(name)
+        plt.pie(val, colors=graph_colors, shadow=True)
+        i = i+1
 
+    plt.legend(handles = [orange_pat, green_pat, red_pat])
     plt.show()
-
 
 def create_line_graph(names):
 
