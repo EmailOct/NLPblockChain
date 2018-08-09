@@ -6,3 +6,4 @@ There are two versions of the code. One version divides data into positive, nega
 ## Dependencies:
 * tweepy<br/>
 * textblob<br/>
+* tkinter<br/>
